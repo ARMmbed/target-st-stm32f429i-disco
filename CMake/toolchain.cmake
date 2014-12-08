@@ -18,6 +18,8 @@ set(CMAKE_SYSTEM_PROCESSOR "armv7-m")
 #
 set(YOTTA_TARGET_DEFINITIONS "-DTARGET_NUCLEO_F401RE -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM")
 
+# post-process elf files into .bin files:
+set(YOTTA_POSTPROCESS_COMMAND "arm-none-eabi-objcopy -O binary YOTTA_CURRENT_EXE_NAME YOTTA_CURRENT_EXE_NAME.bin")
 
 # Set the compiler to ARM-GCC
 include(CMakeForceCompiler)
