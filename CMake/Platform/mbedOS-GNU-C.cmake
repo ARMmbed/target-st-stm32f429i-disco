@@ -7,7 +7,7 @@ set(CMAKE_C_CREATE_SHARED_LIBRARY "echo 'shared libraries not supported' && 1")
 set(CMAKE_C_CREATE_SHARED_MODULE  "echo 'shared modules not supported' && 1")
 set(CMAKE_C_CREATE_STATIC_LIBRARY "<CMAKE_AR> -cr <LINK_FLAGS> <TARGET> <OBJECTS>")
 set(CMAKE_C_COMPILE_OBJECT        "<CMAKE_C_COMPILER> ${YOTTA_TARGET_DEFINITIONS} <DEFINES> <FLAGS> -o <OBJECT> -c <SOURCE>")
-set(CMAKE_C_LINK_EXECUTABLE       "<CMAKE_C_COMPILER> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES> -Wl,--start-group -lnosys -lm -lc -lgcc -lnosys -lnosys -lm -lc -lgcc -lnosys -Wl,--end-group -o <TARGET>")
+set(CMAKE_C_LINK_EXECUTABLE       "<CMAKE_C_COMPILER> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -Wl,--whole-archive <LINK_LIBRARIES> -Wl,--no-whole-archive -Wl,-z,muldefs -Wl,--start-group -lnosys -lm -lc -lgcc -lnosys -lnosys -lm -lc -lgcc -lnosys -Wl,--end-group -o <TARGET>")
 
 
 set(CMAKE_C_FLAGS_INIT "-std=c99 -fno-exceptions -fno-unwind-tables -mcpu=cortex-m4 -mthumb -ffunction-sections -fdata-sections -Wall -Wextra -D__thumb2__")
@@ -34,7 +34,7 @@ get_filename_component(_ARM_GNU_LIBGCC_DIR ${_ARM_GNU_LIBGCC} DIRECTORY)
 # set link flags
 set(CMAKE_C_LINK_FLAGS "")
 set(CMAKE_MODULE_LINKER_FLAGS_INIT
-    "-std=c99 -fno-exceptions -fno-unwind-tables -mcpu=cortex-m4 -mthumb -Wl,--gc-sections -Wl,--sort-common -Wl,--sort-section=alignment"
+    "-std=c99 -fno-exceptions -fno-unwind-tables -mcpu=cortex-m4 -mthumb -Wl,--gc-sections -Wl,--sort-common -Wl,--sort-section=alignment -Wl,--wrap,main"
 )
 
 # set the link script
