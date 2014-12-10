@@ -1,6 +1,6 @@
 {
   "name": "st-nucleo-f401re-gcc",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "similarTo": [
     "nucleo-f401re",
     "f401re",
