@@ -1,6 +1,19 @@
 {
   "name": "st-nucleo-f401re-gcc",
   "version": "0.0.5",
+  "description": "Official mbed build target for the mbed st-nucleo-f401re development board.",
+  "licenses": [
+    {
+      "url": "https://spdx.org/licenses/Apache-2.0",
+      "type": "Apache-2.0"
+    }
+  ],
+  "keywords": [
+    "mbed-target:nucleo-f401re",
+    "mbed-official",
+    "nucleo-f401re",
+    "gcc"
+  ],
   "similarTo": [
     "nucleo-f401re",
     "f401re",
@@ -8,6 +21,7 @@
     "nucleo",
     "stm32f401ret6",
     "stm32f401re",
+    "stm32f401xe",
     "stm32f401",
     "stm32f4",
     "stm32",
@@ -15,16 +29,27 @@
     "cortex-m4",
     "armv7-m",
     "arm",
-    "gcc",
-    "*"
+    "gcc"
   ],
   "toolchain": "CMake/toolchain.cmake",
-  "debug-server": [
-    "echo",
-    "debug server command not defined"
-  ],
   "debug": [
-    "echo",
-    "debug command not defined"
-  ]
+    "valinor",
+    "--target",
+    "stm32f401re",
+    "$program"
+  ],
+  "scripts": {
+    "debug": [
+      "valinor",
+      "--target",
+      "stm32f401re",
+      "$program"
+    ],
+    "test": [
+      "mbed_test_wrapper",
+      "--target",
+      "stm32f401re",
+      "$program"
+    ]
+  }
 }
