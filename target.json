@@ -1,7 +1,7 @@
 {
-  "name": "st-nucleo-f401re-gcc",
+  "name": "st-nucleo-f429zi-gcc",
   "version": "0.1.0",
-  "description": "Official mbed build target for the mbed st-nucleo-f401re development board.",
+  "description": "Official mbed build target for the mbed st-nucleo-f429zi development board.",
   "licenses": [
     {
       "url": "https://spdx.org/licenses/Apache-2.0",
@@ -9,20 +9,20 @@
     }
   ],
   "keywords": [
-    "mbed-target:nucleo-f401re",
+    "mbed-target:nucleo-f429zi",
     "mbed-official",
-    "nucleo-f401re",
+    "nucleo-f429zi",
     "gcc"
   ],
   "similarTo": [
-    "nucleo-f401re",
-    "f401re",
-    "f401",
+    "nucleo-f429zi",
+    "f429zi",
+    "f429",
     "nucleo",
-    "stm32f401ret6",
-    "stm32f401re",
-    "stm32f401xe",
-    "stm32f401",
+    "stm32f429zit6",
+    "stm32f429zi",
+    "stm32f429xi",
+    "stm32f429",
     "stm32f4",
     "stm32",
     "st",
@@ -35,20 +35,20 @@
   "debug": [
     "valinor",
     "--target",
-    "stm32f401re",
+    "stm32f429zi",
     "$program"
   ],
   "scripts": {
     "debug": [
       "valinor",
       "--target",
-      "stm32f401re",
+      "stm32f429zi",
       "$program"
     ],
     "test": [
       "mbed_test_wrapper",
       "--target",
-      "NUCLEO_F401RE",
+      "STM32F429I-DISCO",
       "$program"
     ]
   }
