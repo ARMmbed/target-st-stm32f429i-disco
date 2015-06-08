@@ -1,6 +1,6 @@
 {
   "name": "st-nucleo-f429zi-gcc",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Official mbed build target for the mbed st-nucleo-f429zi development board.",
   "licenses": [
     {
