@@ -1,0 +1,55 @@
+{
+  "name": "st-nucleo-f429zi-gcc",
+  "version": "0.1.0",
+  "description": "Official mbed build target for the mbed st-nucleo-f429zi development board.",
+  "licenses": [
+    {
+      "url": "https://spdx.org/licenses/Apache-2.0",
+      "type": "Apache-2.0"
+    }
+  ],
+  "keywords": [
+    "mbed-target:nucleo-f429zi",
+    "mbed-official",
+    "nucleo-f429zi",
+    "gcc"
+  ],
+  "similarTo": [
+    "nucleo-f429zi",
+    "f429zi",
+    "f429",
+    "nucleo",
+    "stm32f429zit6",
+    "stm32f429zi",
+    "stm32f429xi",
+    "stm32f429",
+    "stm32f4",
+    "stm32",
+    "st",
+    "cortex-m4",
+    "armv7-m",
+    "arm",
+    "gcc"
+  ],
+  "toolchain": "CMake/toolchain.cmake",
+  "debug": [
+    "valinor",
+    "--target",
+    "stm32f429zi",
+    "$program"
+  ],
+  "scripts": {
+    "debug": [
+      "valinor",
+      "--target",
+      "stm32f429zi",
+      "$program"
+    ],
+    "test": [
+      "mbed_test_wrapper",
+      "--target",
+      "STM32F429I-DISCO",
+      "$program"
+    ]
+  }
+}
