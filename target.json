@@ -48,7 +48,7 @@
     "test": [
       "mbed_test_wrapper",
       "--target",
-      "stm32f401re",
+      "NUCLEO_F401RE",
       "$program"
     ]
   }
