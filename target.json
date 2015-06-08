@@ -1,6 +1,6 @@
 {
   "name": "st-nucleo-f401re-gcc",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Official mbed build target for the mbed st-nucleo-f401re development board.",
   "licenses": [
     {
