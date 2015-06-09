@@ -1,5 +1,5 @@
 {
-  "name": "st-nucleo-f429zi-gcc",
+  "name": "stm32f429i-disco-gcc",
   "version": "0.0.0",
   "description": "Official mbed build target for the mbed st-nucleo-f429zi development board.",
   "licenses": [
@@ -11,11 +11,11 @@
   "keywords": [
     "mbed-target:nucleo-f429zi",
     "mbed-official",
-    "nucleo-f429zi",
+    "stm32f429i-disco",
     "gcc"
   ],
   "similarTo": [
-    "nucleo-f429zi",
+    "stm32f429i-disco",
     "f429zi",
     "f429",
     "nucleo",
