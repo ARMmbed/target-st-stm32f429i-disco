@@ -1,16 +1,16 @@
 /* Linker script to configure memory regions. */
 MEMORY
-{ 
+{
   FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 2048k
   CCM (rwx) : ORIGIN = 0x10000000, LENGTH = 64K
-  RAM (rwx) : ORIGIN = 0x200001AC, LENGTH = 192k - 0x1AC 
+  RAM (rwx) : ORIGIN = 0x200001AC, LENGTH = 192k - 0x1AC
 }
 
 /* Linker script to place sections and symbol values. Should be used together
  * with other linker script that defines memory regions FLASH and RAM.
  * It references following symbols, which must be defined in code:
  *   Reset_Handler : Entry of reset handler
- * 
+ *
  * It defines following symbols, which code can use without definition:
  *   __exidx_start
  *   __exidx_end
