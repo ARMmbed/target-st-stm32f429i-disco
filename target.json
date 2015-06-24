@@ -1,6 +1,9 @@
 {
   "name": "stm32f429i-disco-gcc",
   "version": "0.0.1",
+  "inherits": {
+    "mbed-gcc": "*"
+  },
   "description": "Official mbed build target for the mbed st-nucleo-f429zi development board.",
   "licenses": [
     {
