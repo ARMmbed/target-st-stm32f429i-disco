@@ -1,16 +1,16 @@
 /* Linker script to configure memory regions. */
 MEMORY
-{ 
+{
   FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 2048k
   CCM (rwx) : ORIGIN = 0x10000000, LENGTH = 64K
-  RAM (rwx) : ORIGIN = 0x200001AC, LENGTH = 192k - 0x1AC 
+  RAM (rwx) : ORIGIN = 0x200001AC, LENGTH = 192k - 0x1AC
 }
 
 /* Linker script to place sections and symbol values. Should be used together
  * with other linker script that defines memory regions FLASH and RAM.
  * It references following symbols, which must be defined in code:
  *   Reset_Handler : Entry of reset handler
- * 
+ *
  * It defines following symbols, which code can use without definition:
  *   __exidx_start
  *   __exidx_end
@@ -37,10 +37,38 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
+    /* ensure that uvisor bss is at the beginning of memory */
+    .uvisor.bss (NOLOAD):
+    {
+        /* protected uvisor SRAM starts here */
+        KEEP(*(.uvisor.bss.main))
+        KEEP(*(.uvisor.bss.stack))
+        __uvisor_bss_start = .;
+        *(.uvisor.bss*)
+        __uvisor_bss_end = .;
+    } > RAM
+
+    .uvisor.data : AT(__uvisor_cfgtbl_end)
+    {
+        __uvisor_data_src = LOADADDR(.uvisor.data);
+
+        . = ALIGN(32);
+        __uvisor_data_start = .;
+        *(.uvisor.data)
+        . = ALIGN(32);
+        __uvisor_data_end = .;
+    } >RAM
+
     .text :
     {
         KEEP(*(.isr_vector))
+
+        /* uVisor code and data */
+        . = 0x400;
+        *(.uvisor.main)
+
         *(.text*)
+
         KEEP(*(.init))
         KEEP(*(.fini))
 
@@ -69,6 +97,7 @@ SECTIONS
     } > FLASH
 
     __exidx_start = .;
+
     .ARM.exidx :
     {
         *(.ARM.exidx* .gnu.linkonce.armexidx.*)
@@ -78,8 +107,10 @@ SECTIONS
     __etext = .;
     _sidata = .;
 
-    .data : AT (__etext)
+    .data :
     {
+        PROVIDE( __etext = LOADADDR(.data) );
+
         __data_start__ = .;
         _sdata = .;
         *(vtable)
@@ -112,9 +143,30 @@ SECTIONS
         __data_end__ = .;
         _edata = .;
 
-    } > RAM
+    } > RAM AT>FLASH
 
-    .bss :
+    /* put uvisor data flash section at the end of flash */
+    .uvisor.secure :
+    {
+        . = ALIGN(32);
+        __uvisor_secure_start = .;
+        KEEP(*(.uvisor.secure.keep))
+        *(.uvisor.secure)
+        . = ALIGN(32);
+
+        __uvisor_cfgtbl_start = .;
+        KEEP(*(.uvisor.cfgtbl_first*))
+        KEEP(*(.uvisor.cfgtbl*))
+        __uvisor_cfgtbl_end = .;
+    } >FLASH
+
+    .uvisor.end (NOLOAD): AT( LOADADDR(.uvisor.data) + SIZEOF(.uvisor.data) )
+    {
+        . = ALIGN(1024);
+        __uvisor_secure_end = .;
+    } >FLASH
+
+    .bss (NOLOAD):
     {
         . = ALIGN(4);
         __bss_start__ = .;
@@ -126,7 +178,7 @@ SECTIONS
         _ebss = .;
     } > RAM
 
-    .heap (COPY):
+    .heap (NOLOAD):
     {
         __end__ = .;
         end = __end__;
@@ -137,7 +189,7 @@ SECTIONS
     /* .stack_dummy section doesn't contains any symbols. It is only
      * used for linker to calculate size of stack sections, and assign
      * values to stack symbols later */
-    .stack_dummy (COPY):
+    .stack_dummy (NOLOAD):
     {
         *(.stack*)
     } > RAM
