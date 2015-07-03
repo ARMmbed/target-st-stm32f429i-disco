@@ -1,9 +1,10 @@
 /* Linker script to configure memory regions. */
 MEMORY
 {
-  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 2048k
-  CCM (rwx) : ORIGIN = 0x10000000, LENGTH = 64K
-  RAM (rwx) : ORIGIN = 0x200001AC, LENGTH = 192k - 0x1AC
+  VECTORS (rx)          : ORIGIN = 0x08000000, LENGTH = 0x00000400
+  FLASH (rx)            : ORIGIN = 0x08000400, LENGTH = 2048k - 0x400
+  CCM (rwx)             : ORIGIN = 0x10000000, LENGTH = 64K
+  RAM (rwx)             : ORIGIN = 0x200001AC, LENGTH = 192k - 0x1AC
 }
 
 /* Linker script to place sections and symbol values. Should be used together
@@ -37,6 +38,12 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
+    .isr_vector :
+    {
+        __vector_table = .;
+        KEEP(*(.isr_vector))
+         . = ALIGN(4);
+    } > VECTORS
     /* ensure that uvisor bss is at the beginning of memory */
     .uvisor.bss (NOLOAD):
     {
@@ -61,10 +68,7 @@ SECTIONS
 
     .text :
     {
-        KEEP(*(.isr_vector))
-
         /* uVisor code and data */
-        . = 0x400;
         *(.uvisor.main)
 
         *(.text*)
