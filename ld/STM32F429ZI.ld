@@ -1,9 +1,10 @@
 /* Linker script to configure memory regions. */
 MEMORY
 {
-  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 2048k
-  CCM (rwx) : ORIGIN = 0x10000000, LENGTH = 64K
-  RAM (rwx) : ORIGIN = 0x200001AC, LENGTH = 192k - 0x1AC
+  VECTORS (rx)          : ORIGIN = 0x08000000, LENGTH = 0x00000400
+  FLASH (rx)            : ORIGIN = 0x08000400, LENGTH = 2048k - 0x400
+  CCM (rwx)             : ORIGIN = 0x10000000, LENGTH = 64K
+  RAM (rwx)             : ORIGIN = 0x200001AC, LENGTH = 192k - 0x1AC
 }
 
 /* Linker script to place sections and symbol values. Should be used together
@@ -37,6 +38,12 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
+    .isr_vector :
+    {
+        __vector_table = .;
+        KEEP(*(.isr_vector))
+         . = ALIGN(4);
+    } > VECTORS
     /* ensure that uvisor bss is at the beginning of memory */
     .uvisor.bss (NOLOAD):
     {
@@ -61,10 +68,7 @@ SECTIONS
 
     .text :
     {
-        KEEP(*(.isr_vector))
-
         /* uVisor code and data */
-        . = 0x400;
         *(.uvisor.main)
 
         *(.text*)
@@ -106,6 +110,23 @@ SECTIONS
 
     __etext = .;
     _sidata = .;
+
+    /* .stack section doesn't contains any symbols. It is only
+     * used for linker to reserve space for the main stack section
+     * WARNING: .stack should come immediately after the last secure memory
+     * section.  This provides stack overflow detection. */
+    .stack (NOLOAD):
+    {
+        __StackLimit = .;
+        *(.stack*);
+        . += 0x8000 - (. - __StackLimit);
+    } > RAM
+
+    /* Set stack top to end of RAM, and stack limit move down by
+     * size of stack_dummy section */
+    __StackTop = LOADADDR(.stack) + SIZEOF(.stack);
+    __StackLimit = LOADADDR(.stack);
+    PROVIDE(__stack = __StackTop);
 
     .data :
     {
@@ -182,25 +203,11 @@ SECTIONS
     {
         __end__ = .;
         end = __end__;
-        *(.heap*)
+        *(.heap*);
+        . += (ORIGIN(RAM) + LENGTH(RAM) - .);
         __HeapLimit = .;
     } > RAM
-
-    /* .stack_dummy section doesn't contains any symbols. It is only
-     * used for linker to calculate size of stack sections, and assign
-     * values to stack symbols later */
-    .stack_dummy (NOLOAD):
-    {
-        *(.stack*)
-    } > RAM
-
-    /* Set stack top to end of RAM, and stack limit move down by
-     * size of stack_dummy section */
-    __StackTop = ORIGIN(RAM) + LENGTH(RAM);
-    _estack = __StackTop;
-    __StackLimit = __StackTop - SIZEOF(.stack_dummy);
-    PROVIDE(__stack = __StackTop);
-
-    /* Check if data + heap + stack exceeds RAM limit */
-    ASSERT(__StackLimit >= __HeapLimit, "region RAM overflowed with stack")
+    PROVIDE(__heap_size = SIZEOF(.heap));
+    PROVIDE(__mbed_sbrk_start = LOADADDR(.heap));
+    PROVIDE(__mbed_krbs_start = LOADADDR(.heap) + SIZEOF(.heap));
 }
