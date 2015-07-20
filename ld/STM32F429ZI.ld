@@ -53,7 +53,7 @@ SECTIONS
         __uvisor_bss_start = .;
         *(.uvisor.bss*)
         __uvisor_bss_end = .;
-    } > RAM
+    } > CCM
 
     .uvisor.data : AT(__uvisor_cfgtbl_end)
     {
@@ -64,7 +64,7 @@ SECTIONS
         *(.uvisor.data)
         . = ALIGN(32);
         __uvisor_data_end = .;
-    } >RAM
+    } > CCM
 
     .text :
     {
