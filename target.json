@@ -1,6 +1,6 @@
 {
   "name": "stm32f429i-disco-gcc",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "inherits": {
     "mbed-gcc": "*"
   },
@@ -34,10 +34,10 @@
     "arm",
     "gcc"
   ],
-  "config" : {
-      "hardware" : {
-          "externalClock" : "8000000"
-      }
+  "config": {
+    "hardware": {
+      "externalClock": "8000000"
+    }
   },
   "toolchain": "CMake/toolchain.cmake",
   "debug": [
