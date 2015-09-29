@@ -1,6 +1,6 @@
 {
   "name": "stm32f429i-disco-gcc",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "inherits": {
     "mbed-gcc": "*"
   },
@@ -37,23 +37,23 @@
   "config": {
     "hardware": {
       "externalClock": "8000000",
-      "pins" : {
-        "LED1" : "PG_13",
-        "LED2" : "PG_14",
-        "LED3" : "PG_13",
-        "LED4" : "PG_14",
-        "USER_BUTTON" : "PA_0",
-        "SERIAL_TX" : "PA_9",
-        "SERIAL_RX" : "PA_10",
-        "USBTX" : "PA_9",
-        "USBRX" : "PA_10",
-        "I2C_SCL" : "PB_8",
-        "I2C_SDA" : "PB_9",
-        "SPI_MOSI" : "PA_7",
-        "SPI_MISO" : "PA_6",
-        "SPI_SCK" : "PA_5",
-        "SPI_CS" : "PA_4",
-        "PWM_OUT" : "PB_3"
+      "pins": {
+        "LED1": "PG_13",
+        "LED2": "PG_14",
+        "LED3": "PG_13",
+        "LED4": "PG_14",
+        "USER_BUTTON": "PA_0",
+        "SERIAL_TX": "PA_9",
+        "SERIAL_RX": "PA_10",
+        "USBTX": "PA_9",
+        "USBRX": "PA_10",
+        "I2C_SCL": "PB_8",
+        "I2C_SDA": "PB_9",
+        "SPI_MOSI": "PA_7",
+        "SPI_MISO": "PA_6",
+        "SPI_SCK": "PA_5",
+        "SPI_CS": "PA_4",
+        "PWM_OUT": "PB_3"
       }
     }
   },
