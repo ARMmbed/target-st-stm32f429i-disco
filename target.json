@@ -35,6 +35,15 @@
     "gcc"
   ],
   "config": {
+    "mbed-os": {},
+    "cmsis": {
+        "nvic": {
+          "ram_vector_address": "0x20000000",
+          "flash_vector_address": "0x08000000",
+          "user_irq_offset": 16,
+          "user_irq_number": 107
+        }
+    },
     "hardware": {
       "externalClock": "8000000",
       "pins": {
