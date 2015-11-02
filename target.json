@@ -44,6 +44,9 @@
         "user_irq_number": 91
       }
     },
+    "uvisor": {
+      "present": 1
+    },
     "hardware": {
       "externalClock": "8000000",
       "pins": {
