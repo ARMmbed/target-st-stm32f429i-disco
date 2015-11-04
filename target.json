@@ -79,8 +79,8 @@
           "scl": "I2C_SCL"
         },
         "serial": {
-          "tx": "SERIAL_TX",
-          "rx": "SERIAL_RX"
+          "tx": "PC_12",
+          "rx": "PF_6"
         }
       }
     }
