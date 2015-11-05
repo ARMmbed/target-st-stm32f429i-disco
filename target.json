@@ -1,6 +1,6 @@
 {
   "name": "stm32f429i-disco-gcc",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "inherits": {
     "mbed-gcc": "*"
   },
