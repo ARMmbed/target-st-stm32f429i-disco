@@ -24,9 +24,9 @@ set(TARGET_STM32F429I_DISCO_GCC_TOOLCHAIN_INCLUDED 1)
 # definition that you're about to add to rely on the TARGET_LIKE_XXX
 # definitions that yotta provides based on the target.json file.
 #
-add_definitions("-DTARGET_STM32F429I_DISCO -DTARGET_STM32F429ZI -DTARGET_STM32F4 -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM")
+add_definitions("-DTARGET_STM32F429I_DISCO -DTARGET_STM32F429ZI -DSTM32F429xx -DTARGET_STM32F4 -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM")
 
-# append non-generic flags, and set K64F-specific link script
+# append non-generic flags, and set STM32F4-specific link script
 
 set(_CPU_COMPILATION_OPTIONS "-mcpu=cortex-m4 -mthumb -D__thumb2__")
 
