@@ -245,4 +245,10 @@ SECTIONS
     PROVIDE(__heap_size = SIZEOF(.heap));
     PROVIDE(__mbed_sbrk_start = ADDR(.heap));
     PROVIDE(__mbed_krbs_start = ADDR(.heap) + SIZEOF(.heap));
+
+    /* Provide physical memory boundaries for uVisor. */
+    __uvisor_flash_start = ORIGIN(VECTORS);
+    __uvisor_flash_end = ORIGIN(FLASH) + LENGTH(FLASH);
+    __uvisor_sram_start = ORIGIN(CCM);
+    __uvisor_sram_end = ORIGIN(CCM) + LENGTH(CCM);
 }
