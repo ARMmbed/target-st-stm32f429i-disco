@@ -32,7 +32,9 @@
     "cortex-m4",
     "armv7-m",
     "arm",
-    "gcc"
+    "gcc",
+    "stm32f429xi-no-inherit",
+    "stm32f429zi-no-inherit"
   ],
   "config": {
     "mbed-os": {},
