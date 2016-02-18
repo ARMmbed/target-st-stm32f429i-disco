@@ -222,6 +222,16 @@ SECTIONS
         __uvisor_secure_end = .;
     } >FLASH
 
+    .uninitialized (NOLOAD):
+    {
+        . = ALIGN(32);
+        __uninitialized_start = .;
+        *(.uninitialized)
+        KEEP(*(.keep.uninitialized))
+        . = ALIGN(32);
+        __uninitialized_end = .;
+    } > RAM
+
     .bss (NOLOAD):
     {
         . = ALIGN(4);
